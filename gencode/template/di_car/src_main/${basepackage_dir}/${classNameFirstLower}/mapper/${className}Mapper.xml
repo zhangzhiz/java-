@@ -1,0 +1,96 @@
+<#assign myParentDir="entity">
+<#assign className = table.className>   
+<#assign classNameLower = className?uncap_first>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${basepackage}.${table.classNameFirstLower}.dao.${className}Dao">
+	<resultMap id="${className}Map" type="${basepackage}.${table.classNameFirstLower}.entity.${className}">
+		
+		<#list table.columns as column>
+		<#if column.isPk()>
+		<id column="${column.sqlName}" property="${column.camelName}"/>
+		<#else>
+		<result column="${column.sqlName}" property="${column.camelName}"/>
+		</#if>
+		</#list>
+	</resultMap>
+
+	<!--保存 -->
+	<insert id="save${className}" parameterType="${basepackage}.${table.classNameFirstLower}.entity.${className}" 	useGeneratedKeys="true" 
+	<#list table.columns as column>
+		<#if column.isPk()>
+		keyProperty="${column.camelName}"
+		</#if>
+		</#list> >
+		insert into ${table.sqlName} 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<#list table.columns as column>
+			<if test="${column.camelName} != null">
+				${column.sqlName},
+			</if>
+		</#list>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<#list table.columns as column>
+			<if test="${column.camelName} != null">
+				${"#"}{${column.camelName}},
+			</if>
+		</#list>
+		</trim>
+	</insert>
+	
+	<!--修改-->
+	<update id="update${className}ById" parameterType="${basepackage}.${table.classNameFirstLower}.entity.${className}">
+		update ${table.sqlName} 
+		<set>
+			<#list table.columns as column>
+			<if test="${column.camelName} != null">
+				${column.sqlName}=${"#"}{${column.camelName}},
+			</if>
+		</#list>
+		</set>
+		where 
+		<#list table.columns as column>
+		<#if column.isPk()>
+		${column.sqlName}=${"#"}{${column.camelName}}
+		</#if>
+		</#list>
+	</update>
+	
+	<!--查询-->
+	<select id="select${className}ById" resultMap="${className}Map" parameterType="java.lang.Long">
+		select *
+		from ${table.sqlName} 
+		where
+		<#list table.columns as column>
+		<#if column.isPk()>
+		${column.sqlName}=${"#"}{${column.camelName}}
+		</#if>
+		</#list>
+	</select>
+	
+	<!--根据条件查询列表-->
+	<select id="select${className}ListByMap" resultMap="${className}Map" parameterType="java.util.Map">
+		select *
+		from ${table.sqlName} 
+		where 1=1
+		<#list table.columns as column>
+			<if test="${classNameLower} != null">
+				<if test="${classNameLower}.${column.camelName} != null and ${classNameLower}.${column.camelName} != ''">
+					and ${column.sqlName}=${"#"}{${classNameLower}.${column.camelName}}
+				</if>
+			</if>
+		</#list>
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete${className}ById" parameterType="java.lang.Long">
+		delete from ${table.sqlName}  where 
+		<#list table.columns as column>
+		<#if column.isPk()>
+		${column.sqlName}=${"#"}{${column.camelName}}
+		</#if>
+		</#list>
+	</delete>
+	
+</mapper>
