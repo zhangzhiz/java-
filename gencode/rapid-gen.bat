@@ -1,6 +1,6 @@
-@echo 1. Éú³ÉÆ÷×Ô´øÁË²âÊÔÊı¾İ¿â,ÔËĞĞstart_db.batºóÔÙÔËĞĞgen user_info¼´¿ÉÉú³ÉÎÄ¼ş
-@echo 2. Éú³ÉÆ÷µÄÖ÷ÒªÅäÖÃÎÄ¼şÎªgenerator.xml,ÀïÃæĞŞ¸ÄÊı¾İ¿âÁ¬½ÓÊôĞÔ
-@echo 3. templateÄ¿Â¼Îª´úÂëÉú³ÉÆ÷µÄÄ£°åÄ¿Â¼,¿É×ÔÓÉµ÷ÕûÄ£°åµÄÄ¿Â¼½á¹¹
+@echo 1. ç”Ÿæˆå™¨è‡ªå¸¦äº†æµ‹è¯•æ•°æ®åº“,è¿è¡Œstart_db.batåå†è¿è¡Œgen user_infoå³å¯ç”Ÿæˆæ–‡ä»¶
+@echo 2. ç”Ÿæˆå™¨çš„ä¸»è¦é…ç½®æ–‡ä»¶ä¸ºgenerator.xml, é‡Œé¢ä¿®æ”¹æ•°æ®åº“è¿æ¥å±æ€§
+@echo 3. templateç›®å½•ä¸ºä»£ç ç”Ÿæˆå™¨çš„æ¨¡æ¿ç›®å½•,å¯è‡ªç”±è°ƒæ•´æ¨¡æ¿çš„ç›®å½•ç»“æ„
 
 @set classpath=%classpath%;.;.\lib\*;.\lib\rapid-generator.jar;.\lib\freemarker.jar;.\lib\h2-1.2.137.jar;.\lib\log4j-1.2.15.jar;.\lib\mysql-connector-java-5.0.5-bin.jar;.\lib\ojdbc14.jar;.\lib\postgresql-8.4-701.jdbc3.jar;.\lib\sqljdbc.jar
 
@@ -8,7 +8,7 @@
 @java -server -Xms128m -Xmx384m com.yang.ext.CommandLine -DtemplateRootDir=template
 @if errorlevel 1 (
 @echo ----------------------------------------------
-@echo   ****´íÎó***: ÇëÉèÖÃºÃJAVA_HOME»·¾³±äÁ¿ÔÙÔËĞĞ»òÕß¼ì²éÄãµÄclasspathÂ·¾¶
+@echo   ****é”™è¯¯***: è¯·è®¾ç½®å¥½JAVA_HOMEç¯å¢ƒå˜é‡å†è¿è¡Œæˆ–è€…æ£€æŸ¥ä½ çš„classpathè·¯å¾„
 @pause
 )
 
